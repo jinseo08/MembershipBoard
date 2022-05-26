@@ -26,4 +26,19 @@ public class MemberService {
         }
         memberRepository.save(memberDTO);
     }
+
+    public String idCheck(String memberId) {
+        String checkResult = memberRepository.idCheck(memberId);
+        if(checkResult == null){
+            return "ok";
+        }else {
+            return "no";
+        }
+
+    }
+
+    public MemberDTO login(MemberDTO memberDTO) {
+        MemberDTO loginResult = memberRepository.login(memberDTO);
+        return loginResult;
+    }
 }
