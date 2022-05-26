@@ -8,6 +8,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.List;
 
 @Service
 public class MemberService {
@@ -40,5 +41,19 @@ public class MemberService {
     public MemberDTO login(MemberDTO memberDTO) {
         MemberDTO loginResult = memberRepository.login(memberDTO);
         return loginResult;
+    }
+
+    public List<MemberDTO> findAll() {
+        List<MemberDTO> memberDTOList = memberRepository.findAll();
+        return memberDTOList;
+    }
+
+    public boolean delete(Long m_id) {
+        int deleteResult = memberRepository.delete(m_id);
+        if(deleteResult > 0){
+            return true;
+        }else {
+            return false;
+        }
     }
 }

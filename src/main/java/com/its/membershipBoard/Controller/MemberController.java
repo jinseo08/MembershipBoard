@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
+import java.util.List;
 
 @Controller
 @RequestMapping("/member")
@@ -36,6 +37,7 @@ public class MemberController {
         return "/member/login";
         }
 
+    //아이디 중복체크
     @PostMapping("/idCheck")
     public @ResponseBody String idCheck(@RequestParam String memberId){
         String checkResult = memberService.idCheck(memberId);
@@ -48,11 +50,33 @@ public class MemberController {
         if(loginResult != null) {
             model.addAttribute("memberLogin",loginResult);
             session.setAttribute("memberId",loginResult.getMemberId());
-            return "/board/list";
+            return "/layout/header";
         }else {
             return "/member/login";
         }
+    }
 
+    @GetMapping("/logout")
+    public String logout(HttpSession session){
+        session.invalidate();
+        return "redirect:/";
+    }
+
+    @GetMapping("/findAll")
+    public String findAll(Model model){
+        List<MemberDTO> memberDTOList = memberService.findAll();
+        model.addAttribute("memberList",memberDTOList);
+        return "/member/admin";
+    }
+
+    @GetMapping("/delete")
+    public String delete(@RequestParam Long m_id){
+        boolean deleteResult = memberService.delete(m_id);
+        if(deleteResult){
+            return "redirect:/member/findAll";
+        }else {
+            return null;
+        }
     }
 
 
