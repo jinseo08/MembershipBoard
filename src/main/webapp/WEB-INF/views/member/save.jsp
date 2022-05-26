@@ -12,13 +12,13 @@
 </head>
 <body>
 회원가입
-<form action="/member/save" method="post">
-    <input type="text" name="memberId" placeholder="아이디">
-    <input type="password" name="memberPassword" placeholder="비밀번호">
-    <input type="text" name="memberName" placeholder="이름">
-    <input type="text" name="memberEmail" placeholder="이메일">
-    <input type="text" name="memberMobile" placeholder="전화번호">
-    <input type="text" name="memberProfile" placeholder="이미지부분">
+<form action="/member/save" method="post" enctype="multipart/form-data">
+    <input type="text" name="memberId" placeholder="아이디"><br>
+    <input type="password" name="memberPassword" placeholder="비밀번호"><br>
+    <input type="text" name="memberName" placeholder="이름"><br>
+    <input type="text" name="memberEmail" placeholder="이메일"><br>
+    <input type="text" name="memberMobile" placeholder="전화번호"><br>
+    프로필사진 <input type="file" name="memberFile"><br>
     <input type="submit" value="회원가입">
 </form>
 </body>
