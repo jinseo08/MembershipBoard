@@ -33,6 +33,7 @@ public class MemberController {
     // 회원가입 기능 구현
     @PostMapping("/save")
     public String save(@ModelAttribute MemberDTO memberDTO) throws IOException {
+        System.out.println(memberDTO);
         memberService.save(memberDTO);
         return "/member/login";
         }
@@ -50,6 +51,7 @@ public class MemberController {
         if(loginResult != null) {
             model.addAttribute("memberLogin",loginResult);
             session.setAttribute("memberId",loginResult.getMemberId());
+            session.setAttribute("m_id",loginResult.getM_id());
             return "/layout/header";
         }else {
             return "/member/login";
@@ -75,9 +77,42 @@ public class MemberController {
         if(deleteResult){
             return "redirect:/member/findAll";
         }else {
-            return null;
+            return "index";
         }
     }
+
+    @GetMapping("/detail")
+    public String findById(@RequestParam Long m_id,Model model){
+        MemberDTO memberDTO = memberService.findById(m_id);
+        model.addAttribute("memberDetail",memberDTO);
+        return "/member/mypage";
+    }
+
+    @GetMapping("/update")
+    public String updateForm(HttpSession session, Model model){
+        Long updateId = (Long) session.getAttribute("m_id");
+        MemberDTO memberDTO = memberService.findById(updateId);
+        model.addAttribute("memberDetail",memberDTO);
+        return "/member/update";
+    }
+
+
+    @PostMapping("/update")
+    public String update(@ModelAttribute MemberDTO memberDTO) {
+        System.out.println("MemberController.update");
+        System.out.println("memberDTO = " + memberDTO);
+        boolean result = memberService.update(memberDTO);
+        if(result){
+            return "index";
+                    //"redirect:/member/detail?m_id="+memberDTO.getM_id();
+        }else {
+            return "index";
+        }
+    }
+
+
+
+
 
 
 }

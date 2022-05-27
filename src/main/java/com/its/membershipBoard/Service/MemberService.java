@@ -56,4 +56,19 @@ public class MemberService {
             return false;
         }
     }
+
+
+    public MemberDTO findById(Long m_id) {
+        MemberDTO memberDTO = memberRepository.findById(m_id);
+        return memberDTO;
+    }
+
+    public boolean update(MemberDTO memberDTO) {
+        int result = memberRepository.update(memberDTO);
+        if(result >0 ){
+            return true;
+        }else {
+            return false;
+        }
+    }
 }

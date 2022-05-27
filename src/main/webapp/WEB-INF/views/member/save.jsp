@@ -13,6 +13,7 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 </head>
 <body>
+<jsp:include page="../layout/header.jsp" flush="false"></jsp:include>
 회원가입
 <form action="/member/save" method="post" enctype="multipart/form-data">
     <input type="text" name="memberId" placeholder="아이디" onblur="idCheck()" id="memberId"><br>
@@ -29,6 +30,7 @@
     function idCheck(){
         let memberId = document.getElementById("memberId").value;
         let idCheckResult = document.getElementById("idCheckResult");
+        let submit = document.getElementById("submit");
         $.ajax({
             type : "post",
             url : "/member/idCheck",

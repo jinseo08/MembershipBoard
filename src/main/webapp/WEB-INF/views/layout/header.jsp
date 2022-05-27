@@ -29,18 +29,20 @@
       </div>
       <div class="gnb">
           <ul>
-              <li><a href="board/list">글목록</a></li>
+              <li><a href="/board/findAll">글목록</a></li>
               <c:choose>
                   <c:when test="${sessionScope.memberId eq 'admin'}">
                       <li><a href ="/member/findAll">관리자페이지(회원목록)</a></li>
                       <li><a href ="/member/logout">로그아웃</a></li>
+                      관리자님 안녕하세요!
                   </c:when>
                   <c:when test="${!empty sessionScope.memberId}">
-                      <li><a href ="#">마이페이지</a></li>
+                      <li><a href ="/member/detail?m_id=${memberLogin.m_id}">마이페이지</a></li>
                       <li><a href ="/member/logout">로그아웃</a></li>
+                      ${sessionScope.memberId}님 안녕하세요!
                   </c:when>
                   <c:otherwise>
-                      <li><a href="member/save">회원가입</a></li>
+                      <li><a href="/member/save">회원가입</a></li>
                       <li><a href="/member/login">로그인</a></li>
                   </c:otherwise>
               </c:choose>

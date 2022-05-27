@@ -32,4 +32,14 @@ public class MemberRepository {
     public int delete(Long m_id) {
         return sql.delete("Member.delete",m_id);
     }
+
+    public MemberDTO findById(Long m_id) {
+        return sql.selectOne("Member.detail",m_id);
+    }
+
+    public int update(MemberDTO memberDTO) {
+        System.out.println("MemberRepository.update");
+        System.out.println("memberDTO = " + memberDTO);
+        return sql.update("Member.update",memberDTO);
+    }
 }

@@ -11,6 +11,7 @@
     <title>Title</title>
 </head>
 <body>
+<jsp:include page="../layout/header.jsp" flush="false"></jsp:include>
 로그인 페이지
 <form action="/member/login" method="post">
     <input type="text" name="memberId" placeholder="아이디">
