@@ -15,7 +15,7 @@
 <body>
 <jsp:include page="../layout/header.jsp" flush="false"></jsp:include>
 
-<table class="table table-striped">
+<table>
     <tr>
         <th>관리번호</th>
         <th>아이디</th>
@@ -34,7 +34,7 @@
             <td>${member.memberName}</td>
             <td>${member.memberEmail}</td>
             <td>${member.memberMobile}</td>
-            <td><img src="${pageContext.request.contextPath}/upload/${member.memberProfileName}" alt="" height="100" width="100"> </td>
+            <td><img src="${pageContext.request.contextPath}/upload/${member.memberProfileName}" alt="이미지가없습니다" height="100" width="100"></td>
             <td><a href="/member/delete?m_id=${member.m_id}">삭제</a> </td>
 
         </tr>

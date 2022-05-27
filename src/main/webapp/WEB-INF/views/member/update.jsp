@@ -15,8 +15,7 @@
 수정페이지
 
 <form action="/member/update" method="post" name="updateSubmit" enctype="multipart/form-data">
-    <p>회원번호</p>
-    <input type="text" name="m_id" value="${memberDetail.m_id}" readonly><br>
+    <input type="hidden" name="m_id" value="${memberDetail.m_id}" readonly><br>
     <p>아이디</p>
     <input type="text" name="memberId" value="${memberDetail.memberId}" readonly><br>
     <p>비밀번호</p>

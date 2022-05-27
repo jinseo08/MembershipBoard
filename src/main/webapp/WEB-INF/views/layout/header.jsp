@@ -11,6 +11,13 @@
 <head>
     <title>Title</title>
     <style>
+        @font-face {
+            font-family: 'BMJUA';
+            src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_one@1.0/BMJUA.woff') format('woff');
+            font-weight: normal;
+            font-style: normal;
+        }
+        body{font-family: 'BMJUA';}
         a:link{color:inherit; text-decoration:none;}
         a:hover{color:inherit; text-decoration:none;}
         a:visited{color:inherit; text-decoration:none;}
@@ -29,7 +36,7 @@
       </div>
       <div class="gnb">
           <ul>
-              <li><a href="/board/findAll">글목록</a></li>
+              <li><a href="/board/paging">글목록</a></li>
               <c:choose>
                   <c:when test="${sessionScope.memberId eq 'admin'}">
                       <li><a href ="/member/findAll">관리자페이지(회원목록)</a></li>

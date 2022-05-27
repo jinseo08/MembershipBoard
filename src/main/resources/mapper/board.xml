@@ -8,8 +8,18 @@
         select * from board_table
     </select>
     <insert id="save" parameterType="board">
-        insert into board_table(boardTitle,boardContents,boardCreatedDate,boardFileName)
-            values (#{boardTitle},#{boardContents},now(),#{boardFileName})
+        insert into board_table(boardTitle,memberId,boardContents,boardCreatedDate,boardFileName)
+            values (#{boardTitle},#{memberId},#{boardContents},now(),#{boardFileName})
     </insert>
+    <select id="pagingList" parameterType="java.util.HashMap" resultType="board">
+        select * from board_table order by b_id desc limit #{start}, #{limit}
+    </select>
+
+    <select id="count" resultType="int">
+        select count(b_id) from board_table
+    </select>
+    <select id="findById" parameterType="Long" resultType="board">
+        select * from board_table where b_id=#{b_id}
+    </select>
 
 </mapper>

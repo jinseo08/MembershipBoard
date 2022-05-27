@@ -52,7 +52,7 @@ public class MemberController {
             model.addAttribute("memberLogin",loginResult);
             session.setAttribute("memberId",loginResult.getMemberId());
             session.setAttribute("m_id",loginResult.getM_id());
-            return "/layout/header";
+            return "redirect:/board/paging/";
         }else {
             return "/member/login";
         }
@@ -81,9 +81,16 @@ public class MemberController {
         }
     }
 
+//    @GetMapping("/detail")
+//    public String findById(@RequestParam Long m_id,Model model){
+//        MemberDTO memberDTO = memberService.findById(m_id);
+//        model.addAttribute("memberDetail",memberDTO);
+//        return "/member/mypage";
+//    }
     @GetMapping("/detail")
-    public String findById(@RequestParam Long m_id,Model model){
-        MemberDTO memberDTO = memberService.findById(m_id);
+    public String findById(HttpSession session, Model model){
+        Long detailId = (Long) session.getAttribute("m_id");
+        MemberDTO memberDTO = memberService.findById(detailId);
         model.addAttribute("memberDetail",memberDTO);
         return "/member/mypage";
     }
@@ -103,7 +110,7 @@ public class MemberController {
         System.out.println("memberDTO = " + memberDTO);
         boolean result = memberService.update(memberDTO);
         if(result){
-            return "index";
+            return "redirect:/member/detail?m_id="+memberDTO.getM_id();
                     //"redirect:/member/detail?m_id="+memberDTO.getM_id();
         }else {
             return "index";
