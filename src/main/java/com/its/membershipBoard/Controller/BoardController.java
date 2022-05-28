@@ -40,10 +40,13 @@ public class BoardController {
 
     @PostMapping("/save")
     public String save(@ModelAttribute BoardDTO boardDTO) throws IOException {
+        System.out.println("BoardController.save 주기전");
+        System.out.println("boardDTO = " + boardDTO);
         boolean result = boardService.save(boardDTO);
+        System.out.println("BoardController.save받은후");
         System.out.println("boardDTO = " + boardDTO);
         if(result){
-            return "redirect:/board/findAll";
+            return "redirect:/board/paging";
         }else {
             return "/board/save";
         }
@@ -71,8 +74,8 @@ public class BoardController {
     @GetMapping("/search")
     public String search(@RequestParam String searchType,@RequestParam String searchText, Model model){
         List<BoardDTO> boardDTOList = boardService.search(searchType,searchText);
-        model.addAttribute("searchList",boardDTOList);
-        return "/board/searchList";
+        model.addAttribute("boardList",boardDTOList);
+        return "/board/list";
     }
 
 }
