@@ -23,8 +23,11 @@
         <c:when test="${sessionScope.memberId eq 'admin'}">
             <li><a href ="#">글삭제(관리자버전)</a></li>
         </c:when>
+        <c:when test="${!empty sessionScope.memberId}">
+            <li>본인의 글만 수정 및 삭제 할 수 있습니다!</li>
+        </c:when>
         <c:otherwise>
-            <h3>로그인 후 글을 작성할 수 있습니다.</h3>
+            <h3>로그인 후 확인할 수 있습니다.</h3>
         </c:otherwise>
     </c:choose>
 

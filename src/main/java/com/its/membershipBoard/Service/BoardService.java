@@ -80,4 +80,12 @@ public class BoardService {
         BoardDTO boardDTO = boardRepository.findById(b_id);
         return boardDTO;
     }
+
+    public List<BoardDTO> search(String searchType, String searchText) {
+        Map<String,String> searchParam = new HashMap<>();
+        searchParam.put("type",searchType);
+        searchParam.put("text",searchText);
+        List<BoardDTO> boardDTOList = boardRepository.search(searchParam);
+        return boardDTOList;
+    }
 }

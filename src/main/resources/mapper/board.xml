@@ -21,5 +21,8 @@
     <select id="findById" parameterType="Long" resultType="board">
         select * from board_table where b_id=#{b_id}
     </select>
+    <select id="search" parameterType="java.util.HashMap" resultType="board">
+        select * from board_table where ${type} like concat('%',#{text},'%') order by b_id desc
+    </select>
 
 </mapper>

@@ -54,7 +54,7 @@ public class MemberController {
             session.setAttribute("m_id",loginResult.getM_id());
             return "redirect:/board/paging/";
         }else {
-            return "/member/login";
+            return "index";
         }
     }
 

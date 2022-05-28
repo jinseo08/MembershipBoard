@@ -15,6 +15,14 @@
 <body>
 <jsp:include page="../layout/header.jsp" flush="false"></jsp:include>
 글목록 페이지
+<form action="/board/search">
+    <select name="searchType">
+        <option value="boardTitle">제목</option>
+        <option value="memberId">작성자</option>
+    </select>
+    <input type="text" name="searchText" placeholder="검색어 입력">
+    <input type="submit" value="검색">
+</form>
 <table class="table table-striped">
     <tr>
         <th>글번호</th>
@@ -83,11 +91,9 @@
     </c:choose>
 </ul>
 
-
 <c:choose>
     <c:when test="${!empty sessionScope.memberId}">
         <li><a href ="/board/save">글작성</a></li>
-        <li><a href ="#">글수정</a></li>
     </c:when>
     <c:otherwise>
         <h3>로그인 후 글을 작성할 수 있습니다.</h3>
