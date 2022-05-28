@@ -11,6 +11,7 @@
 <html>
 <head>
     <title>Title</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
 </head>
 <body>
@@ -36,6 +37,31 @@
             <td>${boardDetail.boardCreatedDate}</td>
         </tr>
 </table>
+<div>
+    <div>
+        <input type="text" id="memberId" value="${sessionScope.memberId}">
+        <input type="text" id="commentContents" placeholder="댓글내용">
+        <input type="submit" value="댓글작성" onclick="commentSubmit()">
+    </div>
+    <div id="comment-List">
+        <table>
+            <tr>
+                <th>댓글번호</th>
+                <th>작성자</th>
+                <th>내용</th>
+                <th>작성시간</th>
+            </tr>
+            <c:forEach items="${commentList}" var="comment">
+                <tr>
+                    <td>${comment.c_id}</td>
+                    <td>${comment.memberId}</td>
+                    <td>${comment.commentContents}</td>
+                    <td>${comment.commentCreatedDate}</td>
+                </tr>
+            </c:forEach>
+        </table>
+    </div>
+</div>
 
     <c:choose>
         <c:when test="${sessionScope.memberId == boardDetail.memberId}">
@@ -54,4 +80,43 @@
     </c:choose>
 
 </body>
+<script>
+    function commentSubmit(){
+        let memberId = document.getElementById("memberId").value;
+        let commentContents = document.getElementById("commentContents").value;
+        let b_id = ${boardDetail.b_id};
+        $.ajax({
+            type : "post",
+            url : "/comment/save",
+            data: {
+                "memberId" : memberId,
+                "commentContents" : commentContents,
+                "b_id" : b_id
+            },
+            dataType : "json",
+            success : function (result){
+                let output = "<table class='table'>";
+                output += "<tr><th>댓글번호</th>";
+                output += "<th>작성자</th>";
+                output += "<th>내용</th>";
+                output += "<th>작성시간</th></tr>";
+                for(let i in result){
+                    output += "<tr>";
+                    output += "<td>"+result[i].c_id+"</td>";
+                    output += "<td>"+result[i].memberId+"</td>";
+                    output += "<td>"+result[i].commentContents+"</td>";
+                    output += "<td>"+result[i].commentCreatedDate+"</td>";
+                    output += "</tr>";
+                }
+                output += "</table>";
+                document.getElementById('comment-List').innerHTML = output;
+                document.getElementById('memberId').value='';
+                document.getElementById('commentContents').value='';
+            },
+            error : function (){
+                alert("ajax 오류")
+            }
+        })
+    }
+</script>
 </html>
