@@ -88,4 +88,22 @@ public class BoardService {
         List<BoardDTO> boardDTOList = boardRepository.search(searchParam);
         return boardDTOList;
     }
+
+    public boolean update(BoardDTO boardDTO) {
+        int result = boardRepository.update(boardDTO);
+        if(result > 0){
+            return true;
+        }else{
+            return false;
+        }
+    }
+
+    public boolean delete(Long b_id) {
+        int result = boardRepository.delete(b_id);
+        if(result > 0){
+            return true;
+        }else {
+            return false;
+        }
+    }
 }

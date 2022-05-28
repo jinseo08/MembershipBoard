@@ -32,10 +32,19 @@ public class BoardRepository {
 
 
     public BoardDTO findById(Long b_id) {
+        sql.update("Board.boardHits",b_id);
         return sql.selectOne("Board.findById",b_id);
     }
 
     public List<BoardDTO> search(Map<String, String> searchParam) {
         return sql.selectList("Board.search",searchParam);
+    }
+
+    public int update(BoardDTO boardDTO) {
+        return sql.update("Board.update",boardDTO);
+    }
+
+    public int delete(Long b_id) {
+        return sql.delete("Board.delete",b_id);
     }
 }

@@ -81,12 +81,6 @@ public class MemberController {
         }
     }
 
-//    @GetMapping("/detail")
-//    public String findById(@RequestParam Long m_id,Model model){
-//        MemberDTO memberDTO = memberService.findById(m_id);
-//        model.addAttribute("memberDetail",memberDTO);
-//        return "/member/mypage";
-//    }
     @GetMapping("/detail")
     public String findById(HttpSession session, Model model){
         Long detailId = (Long) session.getAttribute("m_id");
@@ -111,7 +105,6 @@ public class MemberController {
         boolean result = memberService.update(memberDTO);
         if(result){
             return "redirect:/member/detail?m_id="+memberDTO.getM_id();
-                    //"redirect:/member/detail?m_id="+memberDTO.getM_id();
         }else {
             return "index";
         }

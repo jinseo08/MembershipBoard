@@ -21,30 +21,15 @@ public class BoardController {
     @Autowired
     private BoardService boardService;
 
-//    @GetMapping("/list")
-//    public String list(){
-//        return "redirect:/board/findAll";
-//    }
 
     @GetMapping("/save")
     public String saveForm(HttpSession session){
         return "/board/save";
     }
 
-    @GetMapping("/findAll")
-    public String findAll(Model model){
-        List<BoardDTO> boardDTOList = boardService.findAll();
-        model.addAttribute("boardList",boardDTOList);
-        return "/board/list";
-    }
-
     @PostMapping("/save")
     public String save(@ModelAttribute BoardDTO boardDTO) throws IOException {
-        System.out.println("BoardController.save 주기전");
-        System.out.println("boardDTO = " + boardDTO);
         boolean result = boardService.save(boardDTO);
-        System.out.println("BoardController.save받은후");
-        System.out.println("boardDTO = " + boardDTO);
         if(result){
             return "redirect:/board/paging";
         }else {
@@ -77,5 +62,38 @@ public class BoardController {
         model.addAttribute("boardList",boardDTOList);
         return "/board/list";
     }
+
+    @GetMapping("/update")
+    public String updateForm(@RequestParam Long b_id, Model model){
+        BoardDTO boardDTO = boardService.findById(b_id);
+        model.addAttribute("boardDetail",boardDTO);
+        return "/board/update";
+    }
+
+    @PostMapping("/update")
+    public String updateForm(@ModelAttribute BoardDTO boardDTO){
+        boolean result = boardService.update(boardDTO);
+        if(result){
+            return "redirect:/board/paging";
+        }else {
+            return "/board/update";
+        }
+    }
+
+    @GetMapping("/delete")
+    public String delete(@RequestParam Long b_id){
+        boolean result = boardService.delete(b_id);
+        if(result){
+            return "redirect:/board/paging";
+        }else {
+            return "redirect:/board/detail";
+        }
+
+    }
+
+
+
+
+
 
 }
