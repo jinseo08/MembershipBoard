@@ -78,7 +78,7 @@ public class BoardController {
     }
 
     @PostMapping("/update")
-    public String updateForm(@ModelAttribute BoardDTO boardDTO){
+    public String update(@ModelAttribute BoardDTO boardDTO){
         boolean result = boardService.update(boardDTO);
         if(result){
             return "redirect:/board/paging";
