@@ -46,7 +46,8 @@
     <input type="text" name="memberEmail" id="email" placeholder="이메일" onblur="email_check()"><br>
     <div id="email_result"></div>
     <p>전화번호</p>
-    <input type="text" name="memberMobile" placeholder="전화번호"><br>
+    <input type="text" name="memberMobile" id="mobile" onblur="mobile_check()" placeholder="전화번호"><br>
+    <div id="mobile_result"></div>
     프로필사진 <input type="file" name="memberFile"><br>
     <input type="submit" value="회원가입">
 </form>
@@ -124,9 +125,22 @@
         let exp = /^[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*\.[a-zA-Z]{2,3}$/;
         if(email_check.match(exp)){
             result.innerHTML = "사용가능한 이메일 입니다!";
-            result.style.color = "red";
+            result.style.color = "green";
         }else{
             result.innerHTML = "이메일 주소를 확인해주세요";
+            result.style.color = "red";
+        }
+    }
+
+    function mobile_check(){
+        let mobile_check = document.getElementById("mobile").value;
+        let result = document.getElementById("mobile_result");
+        let exp = /^\d{3}-\d{3,4}-\d{4}$/;
+        if(mobile_check.match(exp)){
+            result.innerHTML = "사용가능한 번호 입니다!";
+            result.style.color = "green";
+        }else{
+            result.innerHTML = "전화번호를 확인해주세요";
             result.style.color = "red";
         }
     }
