@@ -16,24 +16,27 @@
     .inline_bottom{display:inline-block; vertical-align:bottom;}
     p{margin:0;}
 
-    body{width:1000px; margin:50px auto; background:#222;}
-    .table_layout{padding:25px; box-sizing:border-box; background:#fff; border-radius:20px;}
+    body{width:100%; background:rgb(226, 221, 243);}
+    .table_layout{padding:25px; box-sizing:border-box; background:#fff; border-radius:20px; max-width:1000px; margin:0 auto;}
     .table_layout table{width:100%; table-layout: fixed; border:1px solid #aaa;}
     .table_layout table tbody tr{border-bottom:1px solid #aaa;}
-    .table_layout table tbody tr th{word-break: break-all; padding:10px; box-sizing:border-box; border-right:1px solid #aaa;}
+    .table_layout table tbody tr th{word-break: break-all; padding:10px; box-sizing:border-box; border-right:1px solid #aaa; text-align:center;}
     .table_layout table tbody tr td{word-break: break-all; padding:10px; box-sizing:border-box; border-right:1px solid #aaa;}
 
-    .write_custom{padding:20px; box-sizing:border-box; background:#eee;}
-    .write_custom input{margin-bottom:20px;}
-    .write_custom button{heighT: 126px; width: 137px; border: 0; background: #222; color: #fff;}
+    .write_custom{padding:20px; box-sizing:border-box; background:#eee; margin-top:20px;}
+    .write_custom input{margin-bottom:10px;}
+    .write_custom .area{display:inline-block; vertical-align:top; width:calc(100% - 144px); margin-right:10px;}
+    .write_custom .area textarea{width:100%; padding:10px; box-sizing:border-box; font-size:18px;}
+    .write_custom .area textarea::placeholder{font-size:18px;}
+    .write_custom .button_box{display:inline-block; vertical-align:top; height:130px; width:130px;}
+    .write_custom .button_box input{width:100%; height:100%; background:rgb(226, 221, 243); color:#222; border:0; border-radius:10px;}
+
 
     .text_box{font-size:0; letter-spacing:-4px; margin-top:30px;}
-    .text_box .img_box{display:inline-block; vertical-align:middle; width:40px; height:40px; border-radius:50%; position:relative; overflow:hidden;}
-    .text_box .img_box img{position:absolute; left:50%; top:50%; transform:translate(-50% , -50%); width:100%; height:100%;}
-    .text_box .right_box{display:inline-block; vertical-align:middle; width:calc(100% - 40px); padding-left:20px; box-sizing:border-box;}
-    .text_box .right_box p{font-size:18px; letter-spacing:-0.04em; color:#222; font-weight:500;}
-    .text_box .right_box span{font-size:16px; letter-spacing:-0.04em; color:#666; font-weight:300; display:block; padding-top:10px;}
-    .text_box p.desc{padding-top:20px; font-size:18px; letter-spacing:-0.04em; color:#222; font-weight:400;}
+    .text_box .box{padding:20px 0; box-sizing:border-box; border-bottom:1px solid #aaa;}
+    .text_box .right_box p{font-size:17px; letter-spacing:-0.04em; color:#666; font-weight:300; display:inline-block; vertical-align:middle; padding-right:20px;}
+    .text_box .right_box span{font-size:12px; letter-spacing:-0.04em; color:#888; font-weight:200;  display:inline-block; vertical-align:middle;}
+    .text_box p.desc{padding-top:10px; font-size:20px; letter-spacing:-0.04em; color:#222; font-weight:400;}
 </style>
 <body>
 <jsp:include page="../layout/header.jsp" flush="false"></jsp:include>
@@ -45,7 +48,7 @@
             <col width="12.5%">
             <col width="12.5%">
             <col width="12.5%">
-            <col width="20%">
+            <col width="17%">
             <col width="*">
         </colgroup>
         <tbody>
@@ -76,30 +79,34 @@
         </tr>
         </tbody>
     </table>
-    <div class="container write_custom">
-        <div id="comment-write">
-            <input type="text" id="commentWriter" value="${sessionScope.memberId}" class="block">
-            <textarea rows="5" cols="100" id="commentContents" placeholder="내용" class="inline_bottom"></textarea>
-            <button id="comment-write-btn" class="inline_bottom">댓글작성</button>
+    <div class=" write_custom">
+        <div>
+            <input type="text" id="memberId" placeholder="로그인을 해주세요" value="${sessionScope.memberId}" class="block">
+            <div class="area">
+                <textarea rows="4" cols="" id="commentContents" placeholder="내용" class="inline_bottom"></textarea>
+            </div>
+            <div class="button_box">
+                <input type="submit" value="댓글작성" onclick="commentSubmit()" class="inline_bottom">
+            </div>
         </div>
-
-        <div class="text_box">
-            <c:forEach items="${commentList}" var="comment">
-                <div class="img_box">
-                    <img src="main1.jpg" alt="이미지영역">
-                </div>
-                <div class="right_box">
-                    <p>
+        <div id="comment-write">
+            <div class="text_box">
+                <c:forEach items="${commentList}" var="comment">
+                <div class="box">
+                    <div class="right_box">
+                        <p>
                             ${comment.memberId}
-                    </p>
-                    <span>
+                        </p>
+                        <span>
                             ${comment.commentCreatedDate}
-                    </span>
-                </div>
-                <p class="desc">
+                        </span>
+                    </div>
+                    <p class="desc">
                         ${comment.commentContents}
-                </p>
-            </c:forEach>
+                    </p>
+                </div>
+                </c:forEach>
+            </div>
         </div>
     </div>
     <c:choose>
@@ -122,46 +129,6 @@
 
 </body>
 <script>
-    $("#comment-write-btn").click(function (){
-        //alert("버튼클릭")
-        //댓글작성자, 내용을 가져오고
-        // ajax 문법을 활용하여 /comment/save 주소로 post 방식으로 작성자, 내용, 글번호 이렇게 3개의 값을 보내는 코드 작성
-        let commentWriter = document.getElementById("commentWriter").value;
-        let commentContents = document.getElementById("commentContents").value;
-        let boardId = '${boardDetail.b_id}';
-        $.ajax({
-            type : "post",
-            url : "/comment/save",
-            data : {
-                "commentWriter" : commentWriter,
-                "commentContents":commentContents,
-                "boardId": boardId
-            },
-            dataType : "json",
-            success : function (result) {
-                let output = "<table class='table'>";
-                output += "<tr><th>댓글번호</th>";
-                output += "<th>작성자</th>";
-                output += "<th>내용</th>";
-                output += "<th>작성시간</th></tr>";
-                for(let i in result){
-                    output += "<tr>";
-                    output += "<td>"+result[i].id+"</td>";
-                    output += "<td>"+result[i].commentWriter+"</td>";
-                    output += "<td>"+result[i].commentContents+"</td>";
-                    output += "<td>"+result[i].commentCreatedDate+"</td>";
-                    output += "</tr>";
-                }
-                output += "</table>";
-                document.getElementById('comment-List').innerHTML = output;
-                document.getElementById('commentWriter').value='';
-                document.getElementById('commentContents').value='';
-            },
-            error : function (){
-                alert("어디가 틀렸을까")
-            }
-        })
-    });
 
     function pwCheck(){
         location.href = "/board/pwCheck?b_id=${boardDetail.b_id}";
@@ -169,6 +136,42 @@
 
     function paging(){
         location.href = "/board/paging?page=${page}"; // 직전에 있었던 페이지 값을 컨트롤러로 요청
+    }
+
+    function commentSubmit(){
+        let memberId = document.getElementById("memberId").value;
+        let commentContents = document.getElementById("commentContents").value;
+        let b_id = ${boardDetail.b_id};
+        $.ajax({
+            type : "post",
+            url : "/comment/save",
+            data: {
+                "memberId" : memberId,
+                "commentContents" : commentContents,
+                "b_id" : b_id
+            },
+            dataType : "json",
+            success : function (result){
+                let output = "<div class='text_box'>";
+                for (let i in result) {
+                    output += "<div class='box'>";
+                    output += "<div class='right_box'>";
+                    output += "<p>" + result[i].memberId + "</p>";
+                    output += "<span>" + result[i].commentCreatedDate + "</span>";
+                    output += "</div>"
+                    output += "<p class='desc'>" + result[i].commentContents + "</p>";
+                    output += "</div>";
+                }
+                    output += "</div>";
+                document.getElementById('comment-write').innerHTML = output;
+                document.getElementById('memberId').value='${sessionScope.memberId}';
+                document.getElementById('commentContents').value='';
+
+            },
+            error : function (){
+                alert("ajax 오류")
+            }
+        })
     }
 </script>
 </html>

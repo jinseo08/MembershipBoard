@@ -19,13 +19,14 @@
             font-style: normal;
         }
         *{margin:0; padding:0;}
-        body{width:500px; margin:auto; background:rgb(226, 221, 243); font-family: 'BMJUA'; }
+        body{width:100%; margin:auto; background:rgb(226, 221, 243); font-family: 'BMJUA'; }
         p{font-size:16px; letter-spacing:0.055em; color:#222; font-weight:700; padding-top:15px; padding-left: 4px;}
         input{width:100%; padding:10px; box-sizing:border-box; margin:10px 0 5px; border:1px solid rgb(173, 142, 179); border-radius:5px; height:51px; font-size:16px;}
         div{font-size:12px;}
         input.wid140{width:154px; display:inline-block; vertical-align:top;}
         input.wid220{width:227px; display:inline-block; vertical-align:top;}
-        .box{padding:20px; box-sizing:border-box; background:#fff; border:1px; border-radius:5px}
+        input[type="file"]{font-family: 'BMJUA'; color:#666;}
+        .box{padding:20px; box-sizing:border-box; background:#fff; border-radius:20px; max-width:500px; width:100%; margin:0 auto;}
         submit{width:100%; margin-top:30px; height:50px; font-size:18px; border-radius:5px; display:block; line-height:52px; text-align:center; border:1px solid rgb(173, 142, 179); background-color: #eee ;}
     </style>
 </head>
@@ -40,7 +41,7 @@
     <input type="password" name="memberPassword" id="pw" placeholder="비밀번호" onblur="pw_check()"><br>
     <div id="pw_check_result"></div>
     <p>비밀번호 재확인</p>
-    <input type="password" id="pw_reaffirming" onblur="pw_check2()" >
+    <input type="password" id="pw_reaffirming" onblur="pw_check2()" placeholder="비밀번호 재확인">
     <div id="pw_reaffirming_result"></div>
     <p>이름</p>
     <input type="text" name="memberName" id="name" placeholder="이름" onblur="name_check()"><br>
