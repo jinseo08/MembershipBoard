@@ -17,15 +17,14 @@
             font-style: normal;
         }
         *{margin:0; padding:0;}
-        body{width:400px; margin:auto; background:rgb(226, 221, 243) ; font-family: 'BMJUA';}
+        body{width:100%; background:rgb(226, 221, 243) ; font-family: 'BMJUA'; height:100%;}
         h1{text-align:center; margin-bottom:20px;}
         p{font-size:20px; text-align:center; letter-spacing:-0.04em; color:#222; font-weight:700; padding-top:15px;}
         input{font-family: 'BMJUA'; width:100%; padding:10px; box-sizing:border-box; margin:10px 0 5px; border:1px solid rgb(173, 142, 179); border-radius:5px; height:51px; font-size:16px;}
         input[type="checkbox"]{width:auto; height:auto; margin:15px 10px 0 0;}
-        div{margin-top:30px;}
         div:after{content:''; display:block; clear:both;}
         .center{text-align:Center;}
-        .box{padding:50px 20px; box-sizing:border-box; background:#fff; border-radius:20px}
+        .box{padding:50px 20px; box-sizing:border-box; background:#fff; border-radius:20px; max-width:400px; margin:0 auto;}
         .box + .box{margin-top:20px;}
         submit{width:100%; margin-top:30px; height:50px; font-size:19px; display:block; line-height:52px; text-align:center; border-radius:5px; border:1px solid rgb(173, 142, 179); background-color: #eee ;}
         .bmj{ font-family: 'BMJUA'; letter-spacing:0.045em; font-size:26px;}
