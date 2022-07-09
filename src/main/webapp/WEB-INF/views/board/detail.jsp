@@ -41,11 +41,11 @@
 <div class="table_layout">
     <table>
         <colgroup>
-            <col width="10%">
-            <col width="*">
-            <col width="10%">
-            <col width="*">
-            <col width="10%">
+            <col width="12.5%">
+            <col width="12.5%">
+            <col width="12.5%">
+            <col width="12.5%">
+            <col width="20%">
             <col width="*">
         </colgroup>
         <tbody>
@@ -66,13 +66,13 @@
             <td>${boardDetail.boardCreatedDate}</td>
         </tr>
         <tr>
-            <th colspan="3" class="center">내용</th>
-            <th colspan="3" class="center">사진</th>
+            <th colspan="4" class="center">내용</th>
+            <th colspan="2" class="center">사진</th>
         </tr>
         <tr>
-            <td colspan="3" class="center">${boardDetail.boardContents}</td>
+            <td colspan="4" class="center">${boardDetail.boardContents}</td>
 
-            <td colspan="3" class="center"><img src="${pageContext.request.contextPath}/upload/${boardDetail.boardFileName}" alt="이미지가없습니다" height="350" width="350"></td>
+            <td colspan="2" class="center"><img src="${pageContext.request.contextPath}/upload/${boardDetail.boardFileName}" alt="이미지가없습니다" height="350" width="350"></td>
         </tr>
         </tbody>
     </table>
