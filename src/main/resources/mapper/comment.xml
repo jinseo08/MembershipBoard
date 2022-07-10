@@ -11,5 +11,4 @@
     <select id="findAll" parameterType="Long" resultType="comment">
         select * from comment_table where b_id =#{b_id} order by commentCreatedDate desc
     </select>
-
 </mapper>
