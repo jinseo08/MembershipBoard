@@ -39,6 +39,9 @@
     <p>비밀번호</p>
     <input type="password" name="memberPassword" id="pw" placeholder="비밀번호" onblur="pw_check()"><br>
     <div id="pw_check_result"></div>
+    <p>비밀번호 재확인</p>
+    <input type="password" id="pw_reaffirming" onblur="pw_check2()" >
+    <div id="pw_reaffirming_result"></div>
     <p>이름</p>
     <input type="text" name="memberName" id="name" placeholder="이름" onblur="name_check()"><br>
     <div id="name_result"></div>
@@ -48,7 +51,8 @@
     <p>전화번호</p>
     <input type="text" name="memberMobile" id="mobile" onblur="mobile_check()" placeholder="전화번호"><br>
     <div id="mobile_result"></div>
-    프로필사진 <input type="file" name="memberFile"><br>
+    <p>프로필사진</p>
+    <input type="file" name="memberFile"><br>
     <input type="submit" value="회원가입">
 </form>
 </div>
@@ -142,6 +146,23 @@
         }else{
             result.innerHTML = "전화번호를 확인해주세요";
             result.style.color = "red";
+        }
+    }
+
+    function pw_check2(){
+        let password = document.getElementById("pw").value;
+        let pw_check = document.getElementById("pw_reaffirming").value;
+        let pw_reaffirming_result = document.getElementById("pw_reaffirming_result");
+        if(pw_check.length == 0){
+            pw_reaffirming_result.innerHTML = "필수정보입니다"
+            pw_reaffirming_result.style.color = "red";
+        }else if(password == pw_check){
+            pw_reaffirming_result.innerHTML = "비밀번호가 일치합니다";
+            pw_reaffirming_result.style.color = "green";
+
+        }else{
+            pw_reaffirming_result.innerHTML = "비밀번호가 일치하지 않습니다"
+            pw_reaffirming_result.style.color = "red";
         }
     }
 </script>

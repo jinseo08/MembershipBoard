@@ -39,7 +39,7 @@
               <li><a href="/board/paging">글목록</a></li>
               <c:choose>
                   <c:when test="${sessionScope.memberId eq 'admin'}">
-                      <li><a href ="/member/findAll">관리자페이지(회원목록)</a></li>
+                      <li><a href ="/member/findAll">회원목록</a></li>
                       <li><a href ="/member/logout">로그아웃</a></li>
                       관리자님 안녕하세요!
                   </c:when>
