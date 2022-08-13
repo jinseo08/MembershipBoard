@@ -31,18 +31,20 @@
 </head>
 <body>
 <jsp:include page="../layout/header.jsp" flush="false"></jsp:include>
-회원가입
 <div class="box">
 <form action="/member/save" method="post" enctype="multipart/form-data">
     <p>아이디</p>
     <input type="text" name="memberId" placeholder="아이디" onblur="idCheck()" id="memberId"><br>
     <div id="idCheckResult"></div>
     <p>비밀번호</p>
-    <input type="password" name="memberPassword" placeholder="비밀번호"><br>
+    <input type="password" name="memberPassword" id="pw" placeholder="비밀번호" onblur="pw_check()"><br>
+    <div id="pw_check_result"></div>
     <p>이름</p>
-    <input type="text" name="memberName" placeholder="이름"><br>
+    <input type="text" name="memberName" id="name" placeholder="이름" onblur="name_check()"><br>
+    <div id="name_result"></div>
     <p>이메일</p>
-    <input type="text" name="memberEmail" placeholder="이메일"><br>
+    <input type="text" name="memberEmail" id="email" placeholder="이메일" onblur="email_check()"><br>
+    <div id="email_result"></div>
     <p>전화번호</p>
     <input type="text" name="memberMobile" placeholder="전화번호"><br>
     프로필사진 <input type="file" name="memberFile"><br>
@@ -54,7 +56,7 @@
     function idCheck(){
         let memberId = document.getElementById("memberId").value;
         let idCheckResult = document.getElementById("idCheckResult");
-        let submit = document.getElementById("submit");
+        const exp = /^[a-z\d]{5,20}$/;
         $.ajax({
             type : "post",
             url : "/member/idCheck",
@@ -62,8 +64,16 @@
             dataType : "text", //리턴받을 데이터 형식
             success : function (result){
                 if(result == "ok"){
-                    idCheckResult.innerHTML = "사용 가능한 아이디 입니다.";
-                    idCheckResult.style.color = "green";
+                    if(memberId.match(exp)){
+                        idCheckResult.innerHTML = "사용 가능한 아이디 입니다.";
+                        idCheckResult.style.color = "green";
+                    }else if(memberId.length == 0){
+                        idCheckResult.innerHTML = "필수정보 입니다"
+                        idCheckResult.style.color = "red"
+                    }else {
+                        idCheckResult.innerHTML = "5~20자의 영어 소문자와 숫자만 사용가능합니다"
+                        idCheckResult.style.color = "red"
+                    }
                 }else{
                     idCheckResult.innerHTML = "이미 사용중인 아이디 입니다.";
                     idCheckResult.style.color = "red";
@@ -73,6 +83,52 @@
                 alert("오타 체크");
             }
         });
+    }
+
+    function pw_check(){
+        let pw_check = document.getElementById("pw").value;
+        let result = document.getElementById("pw_check_result")
+        /* 8~16자 영문 대 소문자, 숫자, 특수문자(-,_,!)를 사용하세요.
+        영어 소문자 + 숫자는 필수 */
+        const exp = /^(?=.*[a-z])(?=.*\d)[a-z\dA-Z-_!]{8,16}$/;
+        if(pw_check.match(exp)){
+            result.innerHTML = "사용 가능한 비밀번호입니다"
+            result.style.color = "green"
+        }else if(pw_check.length == 0){
+            result.innerHTML = "필수정보 입니다"
+            result.style.color = "red"
+        }else{
+            result.innerHTML = "8~16자 영문 대 소문자, 숫자, 특수문자(-,_,!)를 사용하세요"
+            result.style.color = "red"
+        }
+    }
+
+    function name_check(){
+        let name_check = document.getElementById("name").value;
+        let result = document.getElementById("name_result");
+        const exp = /^[a-z A-Z 가-힣]{2,16}$/;
+        if(name_check.length == 0){
+            result.innerHTML = "필수정보 입니다"
+            result.style.color = "red"
+        }else if(name_check.match(exp)){
+            result.innerHTML = "완벽한 이름 입니다!"
+            result.style.color = "green"
+        }else{
+            result.innerHTML = "영어와 한글만 사용 가능합니다"
+            result.style.color = "red"
+        }
+    }
+    function email_check(){
+        let email_check = document.getElementById("email").value;
+        let result = document.getElementById("email_result");
+        let exp = /^[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*\.[a-zA-Z]{2,3}$/;
+        if(email_check.match(exp)){
+            result.innerHTML = "사용가능한 이메일 입니다!";
+            result.style.color = "red";
+        }else{
+            result.innerHTML = "이메일 주소를 확인해주세요";
+            result.style.color = "red";
+        }
     }
 </script>
 </html>
